@@ -10,7 +10,7 @@ loadRoot('./images/');
 loadSprite('coin', 'wbKxhcd.png');
 loadSprite('evil-shroom', 'KPO3fR9.png');
 loadSprite('brick', 'pogC9x5.png');
-loadSprite('block', 'bdrLpi6.png');
+loadSprite('block', 'M6rwarW.png');
 loadSprite('mario', 'Wb1qfhK.png');
 loadSprite('mushroom', '0wMd92p.png');
 loadSprite('surprise', 'gesQ1KP.png');
@@ -28,6 +28,68 @@ loadSprite('blue-surprise', 'RMqCc1G.png');
 
 scene('game', () => {
   layers(['bg', 'obj', 'ui'], 'obj');
+
+  const map = [
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '             %   =*=%=                             ',
+    '                                                   ',
+    '                                                   ',
+    '                                                   ',
+    '                                       -+          ',
+    '                         ^    ^        ()          ',
+    '  =======================================  ========',
+  ];
+
+  const levelCfg = {
+    height: 20,
+    width: 20,
+    '=': [sprite('block'), solid()],
+    $: [sprite('coin')],
+    '%': [sprite('surprise'), solid(), 'coin-surprise'],
+    '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
+    '}': [sprite('unboxed'), solid()],
+    '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
+    ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
+    '-': [sprite('pipe-top-left'), solid(), scale(0.5)],
+    '+': [sprite('pipe-top-right'), solid(), scale(0.5)],
+    '^': [sprite('evil-shroom'), solid()],
+    '#': [sprite('mushroom'), solid()],
+  };
+
+  const gameLevel = addLevel(map, levelCfg);
+
+  const score = 0;
+  const scoreLabel = add([
+    text(score),
+    pos(950, 30),
+    scale(4),
+    layer('ui'),
+    { value: score },
+  ]);
+
+  const levelName = 'test';
+  add([text(`Level: ${levelName}`), pos(10, 10)]);
+
+  const player = add([
+    sprite('mario'),
+    solid(),
+    pos(80, 0),
+    body(),
+    origin('bot'),
+  ]);
 });
 
 start('game');
