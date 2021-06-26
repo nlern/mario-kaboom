@@ -6,6 +6,10 @@ kaboom({
   clearColor: [0, 0, 0, 1],
 });
 
+// movement constants
+const MOVE_SPEED = 120;
+const JUMP_FORCE = 350;
+
 loadRoot('./images/');
 loadSprite('coin', 'wbKxhcd.png');
 loadSprite('evil-shroom', 'KPO3fR9.png');
@@ -44,9 +48,9 @@ scene('game', () => {
     '                                                   ',
     '                                                   ',
     '                                                   ',
+    '                                                   ',
+    '                                                   ',
     '             %   =*=%=                             ',
-    '                                                   ',
-    '                                                   ',
     '                                                   ',
     '                                       -+          ',
     '                         ^    ^        ()          ',
@@ -90,6 +94,22 @@ scene('game', () => {
     body(),
     origin('bot'),
   ]);
+
+  // player movements
+  // left
+  keyDown('left', () => {
+    player.move(-MOVE_SPEED, 0);
+  });
+  // right
+  keyDown('right', () => {
+    player.move(MOVE_SPEED, 0);
+  });
+  // jump
+  keyPress('space', () => {
+    if (player.grounded()) {
+      player.jump(JUMP_FORCE);
+    }
+  });
 });
 
 start('game');
